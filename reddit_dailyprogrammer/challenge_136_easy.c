@@ -97,16 +97,37 @@ int main(int argc, char** argv) {
     //state 1 - Have read the number of students and assignments
     //state 3 - Started reading students with their grades in the assignments
     char *data = calloc(100,1);
+	int totalStudents = 0;
+	int totalAssignments = 0;
+
     while (1) {
         switch (state) {
             case 0://get the number of students and assignments
                 ++state;
-                fgets(text,100,stdin);
+				//for now I assume this will not give me any errors
+                fgets(data,100,stdin);
             break;
-            
+			case 1:
+				int conter = 0;
+				++state;
+				char *ptr = strtok(data," ");
+
+				while (ptr != NULL) {
+					switch (counter++) {
+						0:
+						break;
+						1:
+					}
+    				printf ("%s\n",ptr);
+    				ptr = strtok (NULL, " ");
+  				}
+			break;
+			case 2:
+				goto loop_exit;
+			break;           
         }
         
-    fgets(text,10,stdin);
+	//    fgets(text,10,stdin);
     /*
     if (strstr(text,"\n")) {
         printf("ta la");
@@ -119,5 +140,7 @@ int main(int argc, char** argv) {
         
         
     }    
+	loop_exit:
+	return 0;
 }
 
