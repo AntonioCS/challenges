@@ -134,10 +134,10 @@ int main(int argc, char** argv) {
                 
                 for (int x = 0;x<totalStudents;x++) {
                     fgets(data,MAXSIZE,stdin);
-                    printf("Data read -> %s\n",data);
+                    printf("Data read -> %s",data);
                     ptr = strtok(data," ");
                     
-                    if (ptr != NULL) {
+                    if (ptr == NULL) {
                         printf("Error no data given\n");
                         goto loop_exit;
                     }
@@ -167,7 +167,7 @@ int main(int argc, char** argv) {
                             goto loop_exit;
                         }
                         
-                        st->assignments[a] = atoi(ptr);
+                        st->assignments[a++] = atoi(ptr);
                         
                         ptr = strtok (NULL, " ");
                     }
