@@ -72,7 +72,7 @@ JAYDEN 11.30
 MADISON 11.30
 SOPHIA 9.00
 WILLIAM 9.00
-*/
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -83,117 +83,130 @@ WILLIAM 9.00
 
 struct studentList {
     struct student **list;
-    int list_avg;
+    float list_avg;
 };
 
 struct student {
     char *name;
     int *assignments;
-    int avg;    
+    float avg;
 };
 
 /*
  * 
  */
-int main(int argc, char** argv) {    
-        
+int main(int argc, char** argv) {
+
     //state 0 - Not started
     //state 1 - Have read the number of students and assignments - Set up students list
     //state 2 - Started reading students with their grades in the assignments
-    int state = 0;    
-    
-    struct studentList stList = { NULL, 0};    
-    char *data = calloc(MAXSIZE,1);
-	int totalStudents = 0;
-	int totalAssignments = 0;    
+    int state = 0;
+
+    struct studentList stList = {NULL, 0};
+    char *data = calloc(MAXSIZE, 1);
+    int totalStudents = 0;
+    int totalAssignments = 0;
 
     while (1) {
         switch (state) {
             case 0://get the number of students and assignments
                 ++state;
-                
+
                 //must have the \n
-				scanf("%d %d\n",&totalStudents,&totalAssignments);                
-            break;
-			case 1:
+                scanf("%d %d\n", &totalStudents, &totalAssignments);
+                break;
+            case 1:
                 ++state;
-                
+
                 if (totalStudents <= 0 || totalAssignments <= 0) {
                     printf("ERROR\n");
                     goto loop_exit;
                 }
-                
-                stList.list = malloc(sizeof(struct student) * totalStudents);                
-			break;            
-			case 2://Read all the students names and grades
+
+                stList.list = malloc(sizeof (struct student) * totalStudents);
+                break;
+            case 2://Read all the students names and grades
                 ++state;
-                
-                printf("Total students -> %d\n",totalStudents);
+
+                //printf("Total students -> %d\n",totalStudents);
                 char *ptr = NULL;
                 struct student *st = NULL;
-                
-                for (int x = 0;x<totalStudents;x++) {
-                    fgets(data,MAXSIZE,stdin);
-                    printf("Data read -> %s",data);
-                    ptr = strtok(data," ");
-                    
+
+                for (int x = 0; x < totalStudents; x++) {
+                    fgets(data, MAXSIZE, stdin);
+                    //printf("Data read -> %s",data);
+                    ptr = strtok(data, " ");
+
                     if (ptr == NULL) {
                         printf("Error no data given\n");
                         goto loop_exit;
                     }
-                    
-                    st = calloc(sizeof(struct student),1);
-                    
+
+                    st = calloc(sizeof (struct student), 1);
+
                     if (st == NULL) {
                         printf("Unable to allocate space for student\n");
                         goto loop_exit;
                     }
-                    
-                    st->name = calloc(MAXSIZE,1);
-                    st->assignments = calloc(sizeof(int),totalAssignments);
-                    
+
+                    st->name = calloc(MAXSIZE, 1);
+                    st->assignments = calloc(sizeof (int), totalAssignments);
+
                     if (st->name == NULL || st->assignments == NULL) {
                         free(st);
-                    }                    
-                    
-                    strcpy(st->name,ptr);
-                    
+                    }
+
+                    strcpy(st->name, ptr);
+
                     int a = 0;
-                    ptr = strtok (NULL, " "); //Start getting the numbers
-                    
+                    ptr = strtok(NULL, " "); //Start getting the numbers
+
                     while (a < totalAssignments) {
-                        if (ptr == NULL) {                            
+                        if (ptr == NULL) {
                             printf("Error - Missing Assignments");
                             goto loop_exit;
                         }
-                        
+
                         st->assignments[a++] = atoi(ptr);
-                        
-                        ptr = strtok (NULL, " ");
+
+                        ptr = strtok(NULL, " ");
                     }
 
-                    stList.list[x] = st;                    
-                    memset(data,0,MAXSIZE);
+                    stList.list[x] = st;
+                    memset(data, 0, MAXSIZE);
                 }
-			break;
-            case 3://We have all the students with their assignments                
-                for (int i = 0;i<totalStudents;i++) {
-                    printf("Student name: %s\n",stList.list[i]->name);
+                break;
+            case 3://We have all the students with their assignments, so we can make all the calculations        
+                {
+                ++state;
                 
-                    for(int a = 0;a<totalAssignments;a++) {
-                        printf("Assignment %d -> %d\n",a,stList.list[i]->assignments[a]);
+                int sum = 0;
+                for (int i = 0; i < totalStudents; i++) {
+                    sum = 0;
+                    for (int a = 0; a < totalAssignments; a++) {
+                        sum += stList.list[i]->assignments[a];
                     }
-                    //stList.list[i]->assignments[];
-                    //stList->list[i]->assignments;
-                    
+
+                    stList.list[i]->avg = sum / ((float)totalAssignments);
+                    stList.list_avg += stList.list[i]->avg;
+                }
+
+                stList.list_avg /= (float) totalStudents;
+                }
+                break;
+            case 4: //show result
+                printf("%.2f\n", stList.list_avg);
+                for (int i = 0; i < totalStudents; i++) {
+                    printf("%s %.2f\n", stList.list[i]->name, stList.list[i]->avg);
                 }
                 goto loop_exit;
-            break;
+                break;
         }
-    }    
-	loop_exit:
-                
+    }
+
+loop_exit:
+
     free(data);
-	return 0;
+    return 0;
 }
 
