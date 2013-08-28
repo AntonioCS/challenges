@@ -82,7 +82,7 @@ WILLIAM 9.00
 #define MAXSIZE 100
 
 struct studentList {
-    struct students *list;
+    struct student **list;
     int list_avg;
 };
 
@@ -123,7 +123,7 @@ int main(int argc, char** argv) {
                     goto loop_exit;
                 }
                 
-                stList.list = malloc(sizeof(struct studentList) * totalStudents);                
+                stList.list = malloc(sizeof(struct student) * totalStudents);                
 			break;            
 			case 2://Read all the students names and grades
                 ++state;
@@ -172,13 +172,21 @@ int main(int argc, char** argv) {
                         ptr = strtok (NULL, " ");
                     }
 
+                    stList.list[x] = st;                    
                     memset(data,0,MAXSIZE);
                 }
-                
-                
-				//goto loop_exit;
 			break;
-            case 3:
+            case 3://We have all the students with their assignments                
+                for (int i = 0;i<totalStudents;i++) {
+                    printf("Student name: %s\n",stList.list[i]->name);
+                
+                    for(int a = 0;a<totalAssignments;a++) {
+                        printf("Assignment %d -> %d\n",a,stList.list[i]->assignments[a]);
+                    }
+                    //stList.list[i]->assignments[];
+                    //stList->list[i]->assignments;
+                    
+                }
                 goto loop_exit;
             break;
         }
