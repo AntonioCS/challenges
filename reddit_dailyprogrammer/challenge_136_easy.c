@@ -97,9 +97,11 @@ struct student {
  */
 int main(int argc, char** argv) {
 
-    //state 0 - Not started
-    //state 1 - Have read the number of students and assignments - Set up students list
+    //state 0 - Get the students and assignments
+    //state 1 - Have read the number of students and assignments
     //state 2 - Started reading students with their grades in the assignments
+    //state 3 - Make all the calculations
+    //state 4 - Show
     int state = 0;
 
     struct studentList stList = {NULL, 0};
@@ -127,14 +129,12 @@ int main(int argc, char** argv) {
                 break;
             case 2://Read all the students names and grades
                 ++state;
-
-                //printf("Total students -> %d\n",totalStudents);
+                
                 char *ptr = NULL;
                 struct student *st = NULL;
 
                 for (int x = 0; x < totalStudents; x++) {
                     fgets(data, MAXSIZE, stdin);
-                    //printf("Data read -> %s",data);
                     ptr = strtok(data, " ");
 
                     if (ptr == NULL) {
@@ -206,7 +206,6 @@ int main(int argc, char** argv) {
 
 loop_exit:
 
-    free(data);
     return 0;
 }
 
