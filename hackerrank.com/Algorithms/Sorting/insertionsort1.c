@@ -52,8 +52,14 @@ int main(int argc, char** argv) {
             array[i+1] = array[i];
         }
         else {            
+			if (i == (sizeOfArray-2)) {
+				tm = 1;
+        		printArray(array,sizeOfArray);                
+				break;
+			}
             array[i+1] = tmp;                        
             tm = 1;
+			break;
         }
         
         printArray(array,sizeOfArray);                
@@ -61,6 +67,7 @@ int main(int argc, char** argv) {
     
     if (tm == 0) {
         array[0] = tmp;
-        printArray(array,sizeOfArray);
     }
+
+    printArray(array,sizeOfArray);
 }

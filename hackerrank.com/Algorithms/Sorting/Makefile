@@ -8,6 +8,12 @@ insertionsort1_test: insertionsort1
 	./insertionsort1 < insertionsort1_test_data		
 	
 insertionsort1_test2: insertionsort1
-	./insertionsort1 < insertionsort1_test_data_2	
+	./insertionsort1 < insertionsort1_test_data_2
+	
+insertionsort1_test3: insertionsort1
+	./insertionsort1 < insertionsort1_test_data_3
+
+insertionsort1_test4: insertionsort1
+	./insertionsort1 < insertionsort1_test_data_4
 clean:
 	rm -rf $(FILE)
