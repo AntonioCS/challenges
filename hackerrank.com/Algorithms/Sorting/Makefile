@@ -15,5 +15,8 @@ insertionsort1_test3: insertionsort1
 
 insertionsort1_test4: insertionsort1
 	./insertionsort1 < insertionsort1_test_data_4
-clean:
-	rm -rf $(FILE)
+
+
+insertionsort2: insertionsort2.c
+	$(CC) $(CFLAGS) $@ insertionsort2.c
+
