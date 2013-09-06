@@ -19,22 +19,29 @@ void printArray(int a[],int size) {
 void insertionSort(int ar_size, int * ar) {    
     int x = 0;
     int tmp = 0;
+    int print = 0;
     
     for(int i = 1;i<ar_size;i++) {
         x = i;
+        print = 0;
         
         while(x) {
             if (ar[x] < ar[x-1]) {
                 tmp = ar[x-1];
                 ar[x-1] = ar[x];                
-                ar[x] = tmp;                
+                ar[x] = tmp;
+                            
             }
             else {
-                printArray(ar,ar_size);
+                print = 1;
                 break;
             }
             
             x--;
+        }
+        
+        if (print) {
+            printArray(ar,ar_size);
         }
     }
 }
