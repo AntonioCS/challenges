@@ -17,32 +17,24 @@ void printArray(int a[],int size) {
 
 /* Head ends here */
 void insertionSort(int ar_size, int * ar) {    
-    int x = 0;
-    int tmp = 0;
-    int print = 0;
+    int x = 0;    
+    int tmp = 0;    
     
     for(int i = 1;i<ar_size;i++) {
-        x = i;
-        print = 0;
+        x = i;                
         
-        while(x) {
+        while(x) {            
             if (ar[x] < ar[x-1]) {
                 tmp = ar[x-1];
                 ar[x-1] = ar[x];                
-                ar[x] = tmp;
-                            
+                ar[x] = tmp;                
             }
-            else {
-                print = 1;
+            else {                          
                 break;
-            }
-            
+            }            
             x--;
         }
-        
-        if (print) {
-            printArray(ar,ar_size);
-        }
+        printArray(ar,ar_size);
     }
 }
 
