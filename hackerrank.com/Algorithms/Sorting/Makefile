@@ -27,3 +27,12 @@ insertionsort2_test2: insertionsort2
 	cat test_data/insertionsort2_test_data_2
 	./insertionsort2 < test_data/insertionsort2_test_data_2
 
+
+insertionsort_advancedanalysis: insertionsort_advancedanalysis.c
+	$(CC) $(CFLAGS) $@ insertionsort_advancedanalysis.c
+	
+insertionsort_advancedanalysis_test1: insertionsort_advancedanalysis	
+	./insertionsort_advancedanalysis < test_data/insertionsort_adavancedanalysis_test_data_1
+	
+insertionsort_advancedanalysis_test2: insertionsort_advancedanalysis	
+	./insertionsort_advancedanalysis < test_data/insertionsort_adavancedanalysis_test_data_2
