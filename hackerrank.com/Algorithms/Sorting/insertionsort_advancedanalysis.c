@@ -11,26 +11,18 @@ int insertionSort(int ar_size, int * ar) {
     for(int i = 1;i<ar_size;i++) {
         x = i;                
         
-        while(x) {            
-            if (ar[x] < ar[x-1]) {
-                shifts++;
-                tmp = ar[x-1];
-                ar[x-1] = ar[x];                
-                ar[x] = tmp;                
-            }
-            else {                         
-                break;
-            }            
+        while(ar[x] < ar[x-1]) {
+            shifts++;
+            tmp = ar[x-1];
+            ar[x-1] = ar[x];
+            ar[x] = tmp;
             x--;
-        }
-        //printArray(ar,ar_size);
+        }            
     }
     
     return shifts;            
 }
 
-
-/* Tail starts here */
 int main(void) {
 
     int tests = 0;
