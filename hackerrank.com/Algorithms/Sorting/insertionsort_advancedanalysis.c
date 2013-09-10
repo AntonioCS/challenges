@@ -1,17 +1,22 @@
-//https://www.hackerrank.com/challenges/insertion-sort
+/*
+https://www.hackerrank.com/challenges/insertion-sort
+Possible helpful sites:
+ https://www.hackerrank.com/challenges/insertion-sort/forum/questions/1848
+ http://stackoverflow.com/questions/15185033/straight-and-binary-insertion-sort
+*/
 #include <stdio.h>
 #include <stdlib.h>
 
-
+///*
 int insertionSort(int ar_size, int * ar) {    
     int x = 0;    
     int tmp = 0;    
-    int shifts = 0;
+    int shifts = 0;    
     
     for(int i = 1;i<ar_size;i++) {
-        x = i;                
+        x = i;              
         
-        while(ar[x] < ar[x-1]) {
+        while(ar[x] < ar[x-1]) {                        
             shifts++;
             tmp = ar[x-1];
             ar[x-1] = ar[x];
