@@ -28,3 +28,12 @@ challenge_137_easy_test: challenge_137_easy
 	echo "Using Data"
 	cat challenge_137_easy_test_data
 	./challenge_137_easy < challenge_137_easy_test_data	
+	
+#Needs -lm flag to link to math lib
+#http://stackoverflow.com/questions/5005363/undefined-reference-to-sin-in-c
+#must be specified at the end
+challenge_6_easy: challenge_6_easy.c
+	$(CC) $(CFLAGS) $@ challenge_6_easy.c -lm
+	
+challenge_7_easy: challenge_7_easy.c
+	$(CC) $(CFLAGS) $@ challenge_7_easy.c
