@@ -41,14 +41,17 @@ int main(int argc, char **argv) {
     parts = strtok (text," ");
     while (parts != NULL) {
         
-        size = (strlen(parts) * sizeof(char));
-
+        size += ((strlen(parts)) * sizeof(char));
         extra = realloc(reverse,size);
 
         if (extra) {
-            reverse = extra;
+            reverse = extra; 
             reverse[i++] = parts;
-        }           
+        }     
+        else {
+            printf("Error allocating memory\n");
+            exit(1);
+        }
                 
         parts = strtok (NULL, " ");
     }
