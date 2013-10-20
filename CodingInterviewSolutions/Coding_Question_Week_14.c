@@ -17,31 +17,35 @@ Example output string:
  
  
  */
-#define MAX_TEXT 100
+#define MAX_TEXT 500
 
 #include <stdio.h>
-#include <string.h> //strlen
+#include <string.h> //strchr
 #include <stdlib.h> //realloc
 
 
 int main(int argc, char **argv) {
-    char text[MAX_TEXT] = { 0 };    
-    char *parts = NULL;
+    char text[MAX_TEXT] = { 0 };        
     
     printf("Insert string: ");
     fgets(text,MAX_TEXT,stdin);
-    sscanf(text,"%[^\n]",text); //remove the \n
-    
+    //sscanf(text,"%[^\n]",text); //remove the \n <-- Undefined behaviour :D "if copying takes place between objects that overlap, the behavior is undefined."
+    char *theEnter = strchr(text,'\n');
+    if (theEnter) {
+        *theEnter = 0;//remove \n
+    }        
     
     char **reverse = NULL;
     char **extra = NULL;
+    char *parts = NULL;
     int size = 0;
     int i = 0;
+    size_t increse_by = sizeof(char *);
     
     parts = strtok (text," ");
     while (parts != NULL) {
-        
-        size += ((strlen(parts)) * sizeof(char));
+                
+        size += increse_by; //pointer to pointer so increase by the size of new pointer
         extra = realloc(reverse,size);
 
         if (extra) {
