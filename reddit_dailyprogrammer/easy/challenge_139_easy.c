@@ -45,52 +45,52 @@ False
 
 int main(int argc,char **argv) {            
     int letterTotals[LETTERS] = { 0 };
-    
+
     int totalStrings = 0;
     scanf("%d",&totalStrings);
     getchar(); //clear the enter
-    
+
     if (totalStrings < MAX_STRINGS) {
         char buffer[totalStrings][MAX_LEN];        
         char t;
-        
-        
+
+
         for (int i =0;i<totalStrings;i++) {
             memset(buffer[i],0,MAX_LEN);
             fgets(buffer[i],MAX_LEN,stdin);
         }          
-        
+
         char bonus[MAX_LEN] = { 0 };
         char bonusBuffer[MINI_BUFFER] = { 0 };
-        
+
         for (int i =0;i<totalStrings;i++) {
             memset(bonus,0,MAX_LEN);
             memset(letterTotals,0,LETTERS);
-            
+
             char *p = buffer[i];
             bool Pangram = true;
-                        
-            
+
+
             while (*p != '\n') {
                t = tolower(*p++);
-               if (t >= 97 && t <= 122) {
-                   letterTotals[t-97]++;
+               if (t >= 'a' && t <= 'z') {
+                   letterTotals[t-'a']++;
                }
             }                        
-            
+
             for(int q = 0;q < LETTERS;q++) {
                 memset(bonusBuffer,0,MINI_BUFFER);
-                
+
                 if (letterTotals[q] == 0) {
                     Pangram = false;                    
                 }
-                
-                sprintf(bonusBuffer,"%c: %d, ",(char)(q+97),letterTotals[q]);
+
+                sprintf(bonusBuffer,"%c: %d, ",(char)(q+'a'),letterTotals[q]);
                 strcat(bonus,bonusBuffer);                                
             }            
             bonus[strlen(bonus)-2] = 0;//remove the last ,
-                      
-            
+
+
             printf("%s ",(Pangram) ? "True" : "False");
             printf("%s\n",bonus);
         }                                
