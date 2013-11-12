@@ -49,9 +49,84 @@ userId
 
  */
 #include <stdio.h>
+#include <stdbool.h> //bool
+#include <string.h>
+#include <ctype.h> //toupper
 
+void camel_case(char *);
+void snake_case(char *);
+void c_snake_case(char *);
+
+
+#define STRING_LIMIT 250
 
 int main(int argc,char **argv) {
+    int type = 0;
+    char string[STRING_LIMIT] = {0};
     
+    scanf("%d",&type);
+    getchar();//remove the damn \n
     
+    fgets(string,STRING_LIMIT,stdin);
+    
+    switch(type) {
+        case 0://CamelCase
+            camel_case(string);
+        break;
+        case 1://snake_case
+            snake_case(string);
+        break;
+        case 2://capitalize snake_case 
+            c_snake_case(string);
+        break;  
+    }
+    
+    printf("%d\n%s\n",type,string);
+}
+
+void camel_case(char *s) {
+    
+    char *p = NULL;
+    char newString[STRING_LIMIT];    
+    int n = 0;
+    
+    memset(newString,0,STRING_LIMIT);
+    p = strtok (s," ");
+    
+    while (p != NULL) {        
+        
+        if (n++ != 0) {
+            *p = toupper(*p);
+        }
+        
+        strcat(newString,p);        
+        p = strtok (NULL," ");        
+    }
+    
+    memset(s,0,STRING_LIMIT);
+    strcpy(s,newString);
+    s[strlen(s)-1] = '\0';
+}
+
+void snake_case(char *s) {
+    while (*s != '\n') {
+        if (*s == ' ') {
+            *s = '_';
+        }
+        
+        s++;
+    }
+    *s = '\0';
+}
+
+void c_snake_case(char *s) {
+    snake_case(s);
+    
+    while (*s != '\0') {
+        if (*s != '_') {
+            *s = toupper(*s);
+        }
+        
+        s++;
+    }
 }
